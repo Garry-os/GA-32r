@@ -3,5 +3,5 @@
 version = 4
 
 [[package]]
-name = "GA-32r"
+name = "arch"
 version = "0.1.0"
