@@ -1,3 +1,5 @@
+use crate::asm::asm::asm_err_info;
+
 pub enum TokenType {
     Number,
     Text,
@@ -7,12 +9,21 @@ pub enum TokenType {
 pub struct Token {
     pub t_type: TokenType,
     pub content: String,
-    pub number: i32
+    pub number: i32,
+
+    // Origins
+    pub o_file: String,
+    pub o_line: usize,
+    pub o_index: usize
 }
 
-pub fn tokenize(src: &String) -> Vec<Token> {
+pub fn tokenize(src: &String, file: &str) -> Vec<Token> {
     let mut tokens: Vec<Token> = Vec::new();
     let mut buffer = String::new();
+
+    // Origin source
+    let mut line: usize = 0;
+    let mut index: usize = 0;
 
     let mut i: usize = 0;
     let src8 = src.as_bytes();
@@ -34,7 +45,11 @@ pub fn tokenize(src: &String) -> Vec<Token> {
             tokens.push(Token {
                 t_type: TokenType::Text,
                 content: buffer.clone(),
-                number: 0
+                number: 0,
+
+                o_file: file.to_string(),
+                o_line: line,
+                o_index: index
             });
 
             buffer.clear();
@@ -54,15 +69,46 @@ pub fn tokenize(src: &String) -> Vec<Token> {
             tokens.push(Token {
                 t_type: TokenType::Number,
                 content: buffer.clone(),
-                number: buffer.clone().parse::<i32>().expect("Not a number!")
+                number: buffer.clone().parse::<i32>().expect("Not a number!"),
+
+                o_file: file.to_string(),
+                o_line: line,
+                o_index: index
             });
 
             buffer.clear();
+        }
+        else if c == b'\n' {
+            // Increase line
+            line += 1;
+            index = 0;
+            i += 1;
+        }
+        else if c == b',' {
+            i += 1;
+
+            // Create a new token and push into token list
+            tokens.push(Token {
+                t_type: TokenType::Comma,
+                content: ",".to_string(),
+                number: 0,
+
+                o_file: file.to_string(),
+                o_line: line,
+                o_index: index
+            });
         }
         else if c.is_ascii_whitespace() {
             // Ignore whitespace
             i += 1;
         }
+        else {
+            // An invalid token
+            asm_err_info(file, &line, &index, "Invalid token");
+            i += 1;
+        }
+
+        index += 1;
     }
 
     tokens
