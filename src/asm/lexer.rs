@@ -39,6 +39,26 @@ pub fn tokenize(src: &String) -> Vec<Token> {
 
             buffer.clear();
         }
+        else if c.is_ascii_digit() {
+            // Save to the buffer
+            buffer.push(c as char);
+            i += 1;
+
+            // Keep saving until the end of the token
+            while i < src8.len() && src8[i].is_ascii_digit() {
+                buffer.push(src8[i] as char);
+                i += 1;
+            }
+
+            // Create a new token and push into token list
+            tokens.push(Token {
+                t_type: TokenType::Number,
+                content: buffer.clone(),
+                number: buffer.clone().parse::<i32>().expect("Not a number!")
+            });
+
+            buffer.clear();
+        }
         else if c.is_ascii_whitespace() {
             // Ignore whitespace
             i += 1;
