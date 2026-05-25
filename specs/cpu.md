@@ -1,9 +1,11 @@
 # GA-32 CPU architecture specification
 ## Overview
+This is an **RISC** architecture. Below are the keypoints:
 * **32-bit** CPU
 * Uses **MM/IO** to communicate with hardwares.
 * **Big-endian** byte order.
 * The **stack** grows downward.
+* **Fixed** instruction width (32-bit).
 
 ## Registers
 The CPU features five general-purpose registers, two 32-bit pointers, and a 4-bit flag status register.
@@ -41,6 +43,7 @@ XXXXXXXXYYYYZZZZIIIIIIIIIIIIIIII
 - Y: Source register ID (4 bits)  
 - Z: Destination register ID (4 bits)  
 - I: Address/imm (16 bits)  
+Each **instruction's** size is fixed (32-bit).
 
 ### MOV
 **Format:** MOV [reg], [imm/reg]  
