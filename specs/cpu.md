@@ -16,7 +16,7 @@ The CPU features five general-purpose registers, two 32-bit pointers, and a 4-bi
 | B        | 32-bit | General purpose   |
 | C        | 32-bit | General purpose   |
 | D        | 32-bit | General purpose   |
-| E        | 32-bit | General purpose   |
+| E        | 32-bit | Jumper register   |
 | PC       | 32-bit | Program counter   |
 | SP       | 32-bit | Stack pointer     |
 | Z        | 4-bit  | CPU status        |
