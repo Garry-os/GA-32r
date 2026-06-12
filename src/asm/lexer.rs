@@ -26,9 +26,9 @@ pub fn tokenize(src: &String, file: &str) -> Vec<Token> {
     let mut index: usize = 0;
 
     let mut i: usize = 0;
-    let src8 = src.as_bytes();
-    while i < src8.len() {
-        let c = src8[i];
+    let src = src.as_bytes();
+    while i < src.len() {
+        let c = src[i];
 
         if c.is_ascii_alphabetic() {
             // Save to the buffer
@@ -36,8 +36,8 @@ pub fn tokenize(src: &String, file: &str) -> Vec<Token> {
             i += 1;
 
             // Keep saving until the end of the token
-            while i < src8.len() && src8[i].is_ascii_alphabetic() {
-                buffer.push(src8[i] as char);
+            while i < src.len() && src[i].is_ascii_alphabetic() {
+                buffer.push(src[i] as char);
                 i += 1;
             }
 
@@ -47,7 +47,7 @@ pub fn tokenize(src: &String, file: &str) -> Vec<Token> {
                 content: buffer.clone(),
                 number: 0,
 
-                o_file: file.to_string(),
+                o_file: file.to_owned(),
                 o_line: line,
                 o_index: index
             });
@@ -60,8 +60,8 @@ pub fn tokenize(src: &String, file: &str) -> Vec<Token> {
             i += 1;
 
             // Keep saving until the end of the token
-            while i < src8.len() && src8[i].is_ascii_digit() {
-                buffer.push(src8[i] as char);
+            while i < src.len() && src[i].is_ascii_digit() {
+                buffer.push(src[i] as char);
                 i += 1;
             }
 
@@ -71,7 +71,7 @@ pub fn tokenize(src: &String, file: &str) -> Vec<Token> {
                 content: buffer.clone(),
                 number: buffer.clone().parse::<i32>().expect("Not a number!"),
 
-                o_file: file.to_string(),
+                o_file: file.to_owned(),
                 o_line: line,
                 o_index: index
             });
@@ -90,10 +90,10 @@ pub fn tokenize(src: &String, file: &str) -> Vec<Token> {
             // Create a new token and push into token list
             tokens.push(Token {
                 t_type: TokenType::Comma,
-                content: ",".to_string(),
+                content: String::from(","),
                 number: 0,
 
-                o_file: file.to_string(),
+                o_file: file.to_owned(),
                 o_line: line,
                 o_index: index
             });
@@ -104,7 +104,7 @@ pub fn tokenize(src: &String, file: &str) -> Vec<Token> {
         }
         else {
             // An invalid token
-            asm_err_info(file, &line, &index, "Invalid token");
+            asm_err_info(file, line, index, "Invalid token");
             i += 1;
         }
 

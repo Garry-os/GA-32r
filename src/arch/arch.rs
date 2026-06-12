@@ -1,4 +1,5 @@
 // Instructions opcode
+#[repr(u8)]
 pub enum Opcode {
     Mov   = 0x01,
     Load  = 0x02,
@@ -16,6 +17,7 @@ pub enum Opcode {
 }
 
 // Registers ID
+#[repr(u8)]
 pub enum Register {
     A   = 0x01,
     B   = 0x02,

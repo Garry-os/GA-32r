@@ -1,6 +1,7 @@
 use crate::asm::lexer::Token;
 use crate::arch::arch::*;
 
+#[derive(Default)]
 pub struct Context {
     pub tokens: Vec<Token>,
     pub buffer: Vec<u8>
@@ -89,7 +90,7 @@ pub fn asm_err(token: &Token, reason: &str) {
 
 // This is an alternative to asm_err(),
 // where token isn't avaliable
-pub fn asm_err_info(file: &str, line: &usize, index:&usize, reason: &str) {
+pub fn asm_err_info(file: &str, line: usize, index: usize, reason: &str) {
     println!("{} {}:{}: {}", file, line, index, reason);
 }
 

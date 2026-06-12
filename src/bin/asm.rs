@@ -3,10 +3,7 @@ use arch::asm::asm::Context;
 
 fn main() {
     // Create an assembler context
-    let mut context = Context {
-        tokens: Vec::new(),
-        buffer: Vec::new()
-    };
+    let mut context = Context::default();
 
     let test = String::from("MOV A, 123");
 
@@ -14,7 +11,7 @@ fn main() {
 
     let tokens: Vec<Token> = tokenize(&test, "test.asm");
     context.tokens = tokens;
-    for i in 0..context.tokens.len() {
-        println!("{}, number: {}", context.tokens[i].content, context.tokens[i].number);
+    for token in context.tokens {
+        println!("{}, number: {}", token.content, token.number);
     }
 }
