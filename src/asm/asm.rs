@@ -1,6 +1,11 @@
 use crate::asm::lexer::Token;
 use crate::arch::arch::*;
 
+pub enum AsmError {
+    UnexpectedEOF,
+    InvalidToken,
+}
+
 #[derive(Default)]
 pub struct Context {
     pub tokens: Vec<Token>,
@@ -83,14 +88,33 @@ pub const OP_TABLE: &[Op] = &[
     }
 ];
 
+fn err_to_msg(error: &AsmError) -> &'static str {
+    match error {
+        AsmError::UnexpectedEOF => "Unexpected EOF",
+        AsmError::InvalidToken => "Invalid token"
+    }
+}
+
 // Should be called when having a compiling error in the source file
-pub fn asm_err(token: &Token, reason: &str) {
-    println!("{} {}:{}: {}", token.o_file, token.o_line, token.o_index, reason);
+pub fn asm_err(token: &Token, error: AsmError) -> Result<(), AsmError> {
+    println!("{} {}:{}: {}", token.o_file, token.o_line, token.o_index, err_to_msg(&error));
+    Err(error)
 }
 
 // This is an alternative to asm_err(),
 // where token isn't avaliable
-pub fn asm_err_info(file: &str, line: usize, index: usize, reason: &str) {
-    println!("{} {}:{}: {}", file, line, index, reason);
+pub fn asm_err_info(file: &str, line: usize, index: usize, error: AsmError) -> Result<(), AsmError> {
+    println!("{} {}:{}: {}", file, line, index, err_to_msg(&error));
+    Err(error)
+}
+
+// Buffer pushing functions
+pub fn buff_push8(buff: &mut Vec<u8>, value: u8) {
+    buff.push(value);
+}
+
+pub fn buff_push16(buff: &mut Vec<u8>, value: u16) {
+    buff.push((value >> 8) as u8); // High byte
+    buff.push(value as u8); // Low byte
 }
 

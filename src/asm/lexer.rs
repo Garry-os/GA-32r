@@ -1,4 +1,7 @@
-use crate::asm::asm::asm_err_info;
+use crate::asm::asm::{
+    asm_err_info,
+    AsmError
+};
 
 pub enum TokenType {
     Number,
@@ -104,7 +107,7 @@ pub fn tokenize(src: &String, file: &str) -> Vec<Token> {
         }
         else {
             // An invalid token
-            asm_err_info(file, line, index, "Invalid token");
+            let _ = asm_err_info(file, line, index, AsmError::InvalidToken);
             i += 1;
         }
 
