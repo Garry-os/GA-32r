@@ -10,3 +10,7 @@ You can read more in the CPU specification.
 
 ## Specification
 The **Specifications** are in the `specs/` folder.
+
+## License
+This project is licensed under MIT license. Go to `LICENSE` for more information.
+
