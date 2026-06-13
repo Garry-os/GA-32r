@@ -77,7 +77,7 @@ pub fn parse(context: &mut Context) -> Result<(), AsmError> {
         } 
 
         // Emit the instruction
-        buff_push8(buffer, ((src_reg << 4) | dst_reg) as u8);
+        buff_push8(buffer, (src_reg << 4) | dst_reg);
         buff_push16(buffer, imm);
     }
 

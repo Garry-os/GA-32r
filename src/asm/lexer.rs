@@ -101,6 +101,12 @@ pub fn tokenize(src: &String, file: &str) -> Vec<Token> {
                 o_index: index
             });
         }
+        else if c == b';' {
+            // Encounter a comment
+            while i < src.len() && src[i] != b'\n' {
+                i += 1;
+            }
+        }
         else if c.is_ascii_whitespace() {
             // Ignore whitespace
             i += 1;
