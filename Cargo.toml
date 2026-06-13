@@ -9,3 +9,7 @@ edition = "2024"
 name = "asm"
 path = "src/bin/asm.rs"
 
+[[bin]]
+name = "emu"
+path = "src/bin/emu.rs"
+
