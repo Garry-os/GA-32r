@@ -115,13 +115,13 @@ On reset vector, the CPU read a 32-bit big-endian address from (MSB to LSB):
 - `0xFFFFFFF0` - `0xFFFFFFF3`.
 
 Then, the `PC` will be initialize to the 32-bit value.  
-Then `SP` will be reset to address 0x00FFFFFF.  
+Then `SP` will be reset to address 0x8FFFFFFF.
 ### Invalid opcode
 If the CPU encounter an invalid instruction during execution, it stops execution completely.
 ## Memory layout
-- 0x00000000 - 0x00DFFFFF: General purpose RAM
-- 0x00E00000 - 0x00FFFFFF: Stack memory
-- 0x10000000 - 0x1000FFFF: MM/IO
+- 0x00000000 - 0x8FFFFFFF: General purpose RAM
+- 0x8FFF0000 - 0x8FFFFFFF: Stack memory (Optional)
+- 0x90000000 - 0x9000FFFF: MM/IO
 - 0xFFFFFFF0 - 0xFFFFFFF3: Reset vector
 
 ## Devices MM/IO
