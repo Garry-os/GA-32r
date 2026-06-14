@@ -25,7 +25,8 @@ impl Cpu {
 
         self.e = 0;
         self.sp = 0x8FFFFFFF;
+
+        // Read the reset address
+        self.pc = bus.read32(0xFFFFFFF0).unwrap_or(0x00);
     }
 }
-
-

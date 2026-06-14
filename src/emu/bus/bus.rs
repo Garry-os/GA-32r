@@ -3,7 +3,7 @@ use crate::emu::bus::ram::{Ram, RAM_SIZE};
 #[derive(Default)]
 pub struct Bus {
     pub ram: Ram,
-    pub reset_vec: Box<[u8; 3]>
+    pub reset_vec: Box<[u8; 4]>
 }
 
 pub enum MemErr {
@@ -14,7 +14,7 @@ impl Bus {
     pub fn read8(&self, address: u32) -> Option<u8> {
         match address as usize {
             0x0..RAM_SIZE => Some(self.ram.data[address as usize]),
-            0xFFFFFFF0..0xFFFFFFF3 => Some(self.reset_vec[address as usize]),
+            0xFFFFFFF0..=0xFFFFFFF3 => Some(self.reset_vec[(address - 0xFFFFFFF0) as usize]),
             _ => None
         }
     }
@@ -23,20 +23,20 @@ impl Bus {
         let high = self.read8(address)?;
         let low = self.read8(address + 1)?;
 
-        Some(((high << 8) | low) as u16)
+        Some(((high as u16) << 8) | (low as u16))
     }
 
     pub fn read32(&self, address: u32) -> Option<u32> {
         let high = self.read16(address)?;
         let low = self.read16(address + 2)?;
 
-        Some(((high << 16) | low) as u32)
+        Some(((high as u32) << 16) | (low as u32))
     }
 
     pub fn write8(&mut self, address: u32, value: u8) -> Result<(), MemErr> {
         match address as usize {
             0x0..RAM_SIZE => self.ram.data[address as usize] = value,
-            0xFFFFFFF0..0xFFFFFFF3 => self.reset_vec[address as usize] = value,
+            0xFFFFFFF0..=0xFFFFFFF3 => self.reset_vec[(address - 0xFFFFFFF0) as usize] = value,
             _ => return Err(MemErr::InvalidAddress)
         };
 
