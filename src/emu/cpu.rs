@@ -1,3 +1,5 @@
+use crate::emu::bus::bus::Bus;
+
 #[derive(Default, Debug)]
 pub struct Cpu {
     // General purpose registers
@@ -14,7 +16,7 @@ pub struct Cpu {
 }
 
 impl Cpu {
-    pub fn reset(&mut self) {
+    pub fn reset(&mut self, bus: &mut Bus) {
         // Reset the registers
         self.a = 0;
         self.b = 0;
@@ -22,8 +24,7 @@ impl Cpu {
         self.d = 0;
 
         self.e = 0;
-        self.pc = 0;
-        self.sp = 0x00FFFFFF;
+        self.sp = 0x8FFFFFFF;
     }
 }
 
