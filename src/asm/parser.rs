@@ -44,6 +44,14 @@ pub fn parse(context: &mut Context) -> Result<(), AsmError> {
         // Parse opcode
         let op = parse_op(token).ok_or(AsmError::InvalidToken)?;
         buff_push8(buffer, op.opcode);
+
+        if op.num_args == 0 {
+            // Emit the instruction
+            buff_push8(buffer, (src_reg << 4) | dst_reg);
+            buff_push16(buffer, imm);
+            continue;
+        }
+
         let token = tokens.next().ok_or(AsmError::UnexpectedEOF)?;
 
         // Parse registers
@@ -74,7 +82,7 @@ pub fn parse(context: &mut Context) -> Result<(), AsmError> {
             if src_reg == Register::IMM as u8 {
                 imm = token.number as u16;
             }
-        } 
+        }
 
         // Emit the instruction
         buff_push8(buffer, (src_reg << 4) | dst_reg);
@@ -83,4 +91,3 @@ pub fn parse(context: &mut Context) -> Result<(), AsmError> {
 
     Ok(())
 }
-

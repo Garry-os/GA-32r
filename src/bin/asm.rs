@@ -2,7 +2,7 @@ use std::env;
 use std::fs;
 
 use arch::asm::lexer::{Token, tokenize};
-use arch::asm::asm::Context;
+use arch::asm::asm::{Context, err_to_msg};
 use arch::asm::parser::parse;
 
 fn main() {
@@ -29,7 +29,7 @@ fn main() {
     // Parse
     match parse(&mut context) {
         Ok(_) => println!("Parsed successfully!"),
-        Err(_) => println!("Failed to parse!")
+        Err(err) => println!("Failed to parse! Error: {}", err_to_msg(&err))
     };
 
     // Output into a file

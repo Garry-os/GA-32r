@@ -88,7 +88,7 @@ pub const OP_TABLE: &[Op] = &[
     }
 ];
 
-fn err_to_msg(error: &AsmError) -> &'static str {
+pub fn err_to_msg(error: &AsmError) -> &'static str {
     match error {
         AsmError::UnexpectedEOF => "Unexpected EOF",
         AsmError::InvalidToken => "Invalid token"
@@ -117,4 +117,3 @@ pub fn buff_push16(buff: &mut Vec<u8>, value: u16) {
     buff.push((value >> 8) as u8); // High byte
     buff.push(value as u8); // Low byte
 }
-
