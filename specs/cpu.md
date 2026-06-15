@@ -30,6 +30,9 @@ Z register (MSB to LSB):
 **NOTE:** The Z and PC register isn't directly accessible (read-only) by the software or program by using regular instructions like `MOVE`.  
 Instead, they're accessed indirectly (See **Instructions** for more details).  
 
+<details>
+<summary>Instructions list</summary>
+
 ## Instructions
 **Instruction format (2 argument):** `[OP] [destination], [source]`  
 **Instruction format (1 argument):** `[OP] [source]`  
@@ -108,6 +111,7 @@ Each **instruction's** size is fixed (32-bit).
 **Opcode:** 0x0D  
 **Description:** Set [reg] upper 16-bit to [imm].  
 **NOTE:** This instruction exists because of the 16-bit limit in the immediate register.
+</details>
 
 ## Behaviors
 ### Reset vector
