@@ -27,7 +27,7 @@ Z register (MSB to LSB):
 - NEGATIVE
 - OVERFLOW
 
-**NOTE:** The Z and PC register isn't directly accessible by the software or program by using regular instructions like `MOVE`.  
+**NOTE:** The Z and PC register isn't directly accessible (read-only) by the software or program by using regular instructions like `MOVE`.  
 Instead, they're accessed indirectly (See **Instructions** for more details).  
 
 ## Instructions

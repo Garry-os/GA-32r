@@ -15,7 +15,7 @@ fn main() {
     let mut cpu = Cpu::default();
     cpu.reset(&mut bus);
 
-    cpu.step(&mut bus);
+    cpu.step(&mut bus).unwrap();
 
     println!("{:#?}", cpu);
 }
