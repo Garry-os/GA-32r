@@ -5,7 +5,7 @@ This is no mean a production-ready CPU architecture. I have written this for fun
 This repository includes the assembler, emulator, and softwares.
 
 ### Architecture
-The **GA-32** architecture is an **RISC** architecture with fixed instruction width.  
+The **GA-32** architecture is a **RISC-like** architecture with fixed instruction width.  
 You can read more in the CPU specification.
 
 ## Specification

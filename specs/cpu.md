@@ -1,6 +1,6 @@
 # GA-32 CPU architecture specification
 ## Overview
-This is an **RISC** architecture. Below are the keypoints:
+This is a **RISC-like** architecture. Below are the keypoints:
 * **32-bit** CPU
 * Uses **MM/IO** to communicate with hardwares.
 * **Big-endian** byte order.
